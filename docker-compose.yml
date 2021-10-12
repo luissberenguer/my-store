@@ -16,4 +16,5 @@ services:
     enviroment:
       - PGADMIN_DEFAULT_EMAIL=admin@mail.com
       - PGADMIN_DEFAULT_EMAIL=admin1234
-    ports: 5050:80
+    ports:
+      - 5050:80

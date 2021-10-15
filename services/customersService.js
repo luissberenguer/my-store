@@ -6,20 +6,20 @@ class CustomerService {
   constructor() {}
 
   async find() {
-    const rta = await models.Customer.findAll({
+    const customers = await models.Customer.findAll({
       include: ['user']
     });
-    return rta;
+    return customers;
   }
 
-  async findOne(id) {
-    const user = await models.Customer.findByPk(id, {
+  async findOne(customerId) {
+    const customer = await models.Customer.findByPk(customerId, {
       include: ['user']
-    });
-    if (!user) {
+    })
+    if (!customer) {
       throw boom.notFound('customer not found');
     }
-    return user;
+    return customer;
   }
 
   async create(data) {
@@ -30,14 +30,14 @@ class CustomerService {
     return newCustomer;
   }
 
-  async update(id, changes) {
-    const model = await this.findOne(id);
+  async update(customerId, changes) {
+    const model = await this.findOne(customerId);
     const rta = await model.update(changes);
     return rta;
   }
 
-  async delete(id) {
-    const model = await this.findOne(id);
+  async delete(customerId) {
+    const model = await this.findOne(customerId);
     await model.destroy();
     return { rta: true };
   }

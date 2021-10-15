@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const CategoriesService = require('../services/categoriesService');
+const CategoriesService = require('../services/categoriesService.js')
 const service = new CategoriesService();
 
 const validatorHandler = require('../middlewares/valitadorHandler');
@@ -23,20 +23,20 @@ router.get('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const categorie = await service.find(id);
+      const categorie = await service.findOne(id);
       res.json(categorie);
     } catch (error) {
       next(error);
     }
 });
 
-router.get('/:categorieId/products/:productId', async (req, res) => {
-  const { categorieId, productId } = req.params;
-  res.json({
-    categorieId,
-    productId,
-  });
-});
+// router.get('/:categorieId/products/:productId', async (req, res) => {
+//   const { categorieId, productId } = req.params;
+//   res.json({
+//     categorieId,
+//     productId,
+//   });
+// });
 
 router.post('/',
   validatorHandler(createCategorySchema, 'body'),

@@ -5,8 +5,8 @@ const { PRODUCT_TABLE, ProductSchema } = require('../models/productModel')
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
     await queryInterface.createTable(CATEGORY_TABLE, CategorySchema);
+    await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
   },
 
   down: async (queryInterface) => {

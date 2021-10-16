@@ -4,7 +4,7 @@ const { config } = require('../config/config');
 const options = {}
 
 if (config.isProd) {
-    options.connectionString = dbUrl;
+    options.connectionString = config.dbUrl;
     options.ssl = {
         rejectUnauthorized: false
   };

@@ -8,19 +8,6 @@ const cors = require('cors');
 
 app.use(express.json());
 
-// const whitelist = ['http://localhost:8080','https://myapp.co'];
-// const options = {
-//   origin: (origin, callback) => {
-//     if (whitelist.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('no permitido'), false);
-//     }
-//   }
-// }
-
-app.use(cors());
-
 app.get('/', (req, res) => {
   res.send('Hola mi server en Express')
 })
@@ -34,6 +21,20 @@ app.get('/home', (req, res) => {
 })
 
 routerApi(app);
+
+// const whitelist = ['http://localhost:8080','https://myapp.co'];
+// const options = {
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('no permitido'), false);
+//     }
+//   }
+// }
+
+app.use(cors());
+
 
 app.use(logErrors);
 app.use(ormErrorHandler);

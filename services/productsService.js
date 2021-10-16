@@ -26,7 +26,7 @@ class ProductsService {
     if(price) {
       options.where.price = price
     }
-    
+
     const { price_min, price_max } = query;
     if(price_min && price_max) {
       options.where.price = {
@@ -55,7 +55,7 @@ class ProductsService {
     return updatedProduct;
   }
 
-  async deleteOne(id){
+  async delete(id){
     const product = await this.findOne(id);
     await product.destroy();
     return { rta: true }

@@ -33,7 +33,7 @@ class CategoriesService {
     return updatedCategory;
   }
 
-  async deleteOne(id){
+  async delete(id){
     const category = await this.findOne(id);
     await category.destroy();
     return { rta: true }

@@ -5,11 +5,9 @@ const { USER_TABLE } = require('../models/userModel')
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.addColumn(USER_TABLE, 'role', {
-      role: {
         allowNull: false,
         type: DataTypes.STRING,
         defaultValue: 'customer'
-       },
     });
   },
 

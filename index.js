@@ -5,22 +5,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/errorHandler');
 const cors = require('cors');
+const checkApiKey = require('./middlewares/authHandler')
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hola mi server en Express')
-})
-
-app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola soy una nueva ruta')
-})
-
-app.get('/home', (req, res) => {
-  res.send('Aquí encontrarás nuestra página principal')
-})
-
-routerApi(app);
 
 // const whitelist = ['http://localhost:8080','https://myapp.co'];
 // const options = {
@@ -35,6 +23,19 @@ routerApi(app);
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Hola mi server en Express')
+})
+
+app.get('/nueva-ruta', checkApiKey,  (req, res) => {
+  res.send('Hola soy una nueva ruta')
+})
+
+app.get('/home', (req, res) => {
+  res.send('Aquí encontrarás nuestra página principal')
+})
+
+routerApi(app);
 
 app.use(logErrors);
 app.use(ormErrorHandler);

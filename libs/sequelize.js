@@ -4,7 +4,7 @@ const setupModels = require('../db/models/index');
 
 const options = {
   dialect: 'postgres',
-  logging: config.isProd ? false : true,
+  logging: config.isProd ? false : true
 }
 
 if (config.isProd) {
@@ -12,7 +12,7 @@ if (config.isProd) {
     ssl: {
       rejectUnauthorized: false
     }
-  }
+  };
 }
 
 const sequelize = new Sequelize(config.dbUrl, options);

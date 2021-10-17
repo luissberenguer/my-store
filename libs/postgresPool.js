@@ -15,6 +15,7 @@ if (config.isProd) {
     options.connectionString = URI;
 }
 
+console.log('[options] ', options);
 const pool = new Pool(options);
 
 module.exports = pool;

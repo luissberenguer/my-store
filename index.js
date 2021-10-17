@@ -5,26 +5,29 @@ const app = express();
 const port = process.env.PORT || 3000;
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/errorHandler');
 const cors = require('cors');
-const checkApiKey = require('./middlewares/authHandler')
+const { checkApiKey } = require('./middlewares/authHandler')
+const passport = require('passport');
 
 app.use(express.json());
 
+const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
+    }
+  }
+}
+app.use(cors(options));
 
-// const whitelist = ['http://localhost:8080','https://myapp.co'];
-// const options = {
-//   origin: (origin, callback) => {
-//     if (whitelist.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('no permitido'), false);
-//     }
-//   }
-// }
+app.use(passport.initialize());
+require('./utils/auth/index');
 
-app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Hola mi server en Express')
+  res.send('Hola mi server en Expr/*  */ess')
 })
 
 app.get('/nueva-ruta', checkApiKey,  (req, res) => {
@@ -34,6 +37,8 @@ app.get('/nueva-ruta', checkApiKey,  (req, res) => {
 app.get('/home', (req, res) => {
   res.send('Aquí encontrarás nuestra página principal')
 })
+
+
 
 routerApi(app);
 
